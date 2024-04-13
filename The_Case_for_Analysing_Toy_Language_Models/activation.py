@@ -1,41 +1,54 @@
-from transformer_lens import HookedTransformer, HookedTransformerConfig
 from transformers import GPT2Tokenizer
-from functools import partial
+from transformer_lens import HookedTransformer, HookedTransformerConfig
 import torch
+import numpy as np
 
-# Define the configuration for the HookedTransformer
+# Define your configuration
 config = HookedTransformerConfig(
-    n_layers=1,       # Number of transformer blocks (layers)
-    d_model=768,       # Dimensionality of the model
-    n_ctx=1024,        # Maximum sequence length
-    d_head=64,         # Dimensionality of each attention head
-    n_heads=12,        # Number of attention heads
-    d_mlp=3072,        # Dimensionality of the feedforward network model
-    act_fn='gelu',     # Activation function
-    d_vocab=50257,     # Vocabulary size
-    model_name='gpt2'  # Model name to load pretrained weights
+    n_layers=1,  
+    d_model=768, 
+    d_head=64, 
+    n_heads=12, 
+    d_mlp=3072,
+    act_fn='gelu', 
+    n_ctx=1024, 
+    d_vocab=50257,
+    model_name='gpt2'
 )
 
-# Instantiate the HookedTransformer with the defined config
+# Instantiate model
 model = HookedTransformer(config)
 
-# Instantiate tokenizer
+# Load tokenizer
 tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
 
-# Prepare input tokens
-input_text = "Hello World"
-tokens = tokenizer.encode(input_text, return_tensors='pt')
+# Example texts
+texts = ["Hello world", "Example of input text", "Another text input for model"]
 
-# Define a simple hook function to capture specific activations
-def capture_specific_activation(module, input, output):
-    print(f"Activation captured from module: {output}")
-    return output  # It's essential to return the output, or it can alter the forward pass results.
+# Store activations globally
+activations = []
 
-# Register the hook for a specific layer and head (if the API permits)
-if hasattr(model, 'layers'):
-    specific_layer = model.layers[0]  # Example: hooking to the first layer
-    specific_layer.register_forward_hook(capture_specific_activation)
+# Define a hook function to capture and store activations
+def capture_activations(module, input, output):
+    # Average across the sequence length (token) dimension to get consistent shapes
+    averaged_activation = output.detach().mean(dim=1).cpu().numpy()
+    activations.append(averaged_activation)
 
-# Run the model and print outputs
-outputs = model(tokens)
-print("Outputs from model with input: ", input_text, outputs)
+# Attach hook to the appropriate layers
+if hasattr(model, 'blocks'):
+    for block in model.blocks:
+        # Attach hook based on your model's specific layers or sub-layers
+        if hasattr(block, 'attn'):
+            block.attn.register_forward_hook(capture_activations)
+        elif hasattr(block, 'mlp'):
+            block.mlp.register_forward_hook(capture_activations)
+
+# Run model with hooks
+for text in texts:
+    tokens = tokenizer.encode(text, return_tensors='pt')
+    model(tokens)
+
+# Concatenate all captured activations
+all_activations = np.concatenate(activations, axis=0)  
+max_activation_index = np.argmax(np.mean(all_activations, axis=0))
+print("Neuron with the highest average activation:", max_activation_index)
