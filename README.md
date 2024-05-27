@@ -34,3 +34,8 @@ I welcome contributions from anyone interested in mechanistic interpretability! 
 - Discussion: Join the discussion on each problem by leaving comments and suggestions.
 - Collaboration: Collaborate with me on specific problems by contributing code, ideas, or resources.
 - Feedback: Provide feedback on my solutions and suggest improvements.
+
+## Getting Started
+To get started, check out the Problem List (https://www.alignmentforum.org/posts/LbrPTJ4fmABEdEnLf/200-concrete-open-problems-in-mechanistic-interpretability) and pick a problem that interests you. You can also browse through my Solutions to see my progress and findings so far.
+
+
