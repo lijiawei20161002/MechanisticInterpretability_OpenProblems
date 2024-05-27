@@ -16,3 +16,21 @@ This repository is organized into several sections:
 - Insights and Learnings: Key insights and learnings from my work on each problem.
 - Discussion and Collaboration: A space for discussion, feedback, and collaboration with the community.
 
+## Problem List
+The problems are categorized into the following sections:
+
+- Foundational Questions: Fundamental questions about the nature of interpretability.
+- Method Development: Creating new methods for understanding neural networks.
+- Application and Validation: Applying interpretability methods to real-world models and validating their effectiveness.
+- Theoretical Insights: Theoretical analysis and insights into mechanistic interpretability.
+
+Each problem will have its own dedicated page with:
+- A detailed description of the problem.
+- My approach and solution.
+- Results and findings.
+  
+## How to Contribute
+I welcome contributions from anyone interested in mechanistic interpretability! Here's how you can get involved:
+- Discussion: Join the discussion on each problem by leaving comments and suggestions.
+- Collaboration: Collaborate with me on specific problems by contributing code, ideas, or resources.
+- Feedback: Provide feedback on my solutions and suggest improvements.
