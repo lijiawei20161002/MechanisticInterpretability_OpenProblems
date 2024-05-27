@@ -1,5 +1,5 @@
 # 200 Concrete Open Problems in Mechanistic
-Welcome to my journey of tackling the "200 Concrete Open Problems in Mechanistic Interpretability" for fun in my spare time! This repository documents my progress, findings, and insights as I dive into these intriguing and challenging problems. My goal is to contribute to the field of mechanistic interpretability by exploring and solving these problems, sharing my methods and results with the community.
+Welcome to my journey of tackling the "200 Concrete Open Problems in Mechanistic Interpretability" by Neel Nanda for fun in my spare time! This repository documents my progress, findings, and insights as I dive into these intriguing and challenging problems. My goal is to contribute to the field of mechanistic interpretability by exploring and solving these problems, sharing my methods and results with the community.
 
 ## About the Project
 Mechanistic interpretability is a fascinating area of AI research focused on understanding the inner workings of neural networks. By addressing these open problems, I hope to:
